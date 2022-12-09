@@ -73,7 +73,7 @@ const App = () => {
         </div>
         {loading && <Spinner />}
         <div className="status">{error && 'Error'}</div>
-        <div>{!loading && !hasMore && 'No more data'}</div>
+        <div className="status">{!loading && !hasMore && 'No more data'}</div>
       </div>
     </div>
   )
