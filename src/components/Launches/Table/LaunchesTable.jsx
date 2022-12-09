@@ -1,7 +1,34 @@
+import { useState, useEffect } from 'react'
 import './LaunchesTable.css'
+import { LAUNCHES_ENDPOINT } from '../../../services/constants/endpoints'
+import { HEADERS } from '../../../services/constants/headers'
+import { axiosGet } from '../../../services/utilities/axios'
+import SearchInput from '../Input/SearchInput'
 
-const LaunchesTable = ({ launches }) => {
-  const launchDetails = launches.map((launch, index) => (
+const LaunchesTable = () => {
+  const [launches, setLaunches] = useState([])
+  const [search, setSearch] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(true)
+    axiosGet(LAUNCHES_ENDPOINT, HEADERS).then((response) => {
+      setIsLoading(false)
+      if (response.status === 200) {
+        setLaunches(response.data)
+      } else {
+        alert(response.message)
+      }
+    })
+  }, [])
+
+  const handleSearch = (event) => {
+    const query = event.target.value.trim()
+
+    setSearch(query)
+  }
+
+  const launchData = launches.map((launch, index) => (
     <div className="launches-table-container" key={index}>
       <div className="launches-table-icon">
         <img
@@ -22,10 +49,13 @@ const LaunchesTable = ({ launches }) => {
   ))
 
   return (
-    <div className="launches-table">
-      <div style={{ paddingBottom: '3rem' }}></div>
-      {launchDetails}
-    </div>
+    <>
+      <SearchInput search={search} handleSearch={handleSearch} />
+      <div className="launches-table">
+        <div style={{ paddingBottom: '3rem' }}></div>
+        {launchData}
+      </div>
+    </>
   )
 }
 
