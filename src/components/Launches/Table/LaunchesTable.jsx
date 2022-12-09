@@ -14,6 +14,10 @@ const LaunchesTable = () => {
     getLaunchData()
   }, [])
 
+  useEffect(() => {
+    showData()
+  }, [search])
+
   const getLaunchData = () => {
     setIsLoading(true)
     axiosGet(LAUNCHES_ENDPOINT, HEADERS).then((response) => {
@@ -26,24 +30,61 @@ const LaunchesTable = () => {
     })
   }
 
+  const showSearch = () => {
+    const filter = launches.filter((launch) => {
+      return (
+        launch.flight_number.toString().includes(search) ||
+        launch.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+        new Date(launch.date_unix).getFullYear().toString().includes(search)
+      )
+    })
+
+    if (find === undefined) {
+      return (
+        <div className="launches-table-container">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+            }}
+          >
+            <div>No data</div>
+          </div>
+        </div>
+      )
+    } else {
+      return filter.map((launch, index) => (
+        <div className="launches-table-container" key={index}>
+          <div className="launches-table-icon">
+            <img
+              src={launch.links.flickr.original[0]}
+              className="launches-table-icon-img"
+            />
+          </div>
+          <div className="launches-table-info-container">
+            <div className="launches-table-info-header">
+              {launch.flight_number}: {launch.name} (
+              {new Date(launch.date_unix).getFullYear()})
+            </div>
+            <div className="launches-table-info-details">
+              Details: {launch.details}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  }
+
   const handleSearch = (event) => {
     const query = event.target.value.trim()
 
     setSearch(query)
-
-    if (query === '') {
-      getLaunchData()
-    } else {
-      const find = launches.find(
-        (launch) => launch.flight_number.toString() === query
-      )
-
-      setLaunches([find])
-    }
   }
 
-  const showData = (data) => {
-    return data.map((launch, index) => (
+  const showData = () => {
+    return launches.map((launch, index) => (
       <div className="launches-table-container" key={index}>
         <div className="launches-table-icon">
           <img
@@ -69,7 +110,7 @@ const LaunchesTable = () => {
       <SearchInput search={search} handleSearch={handleSearch} />
       <div className="launches-table">
         <div style={{ paddingBottom: '3rem' }}></div>
-        {showData(launches)}
+        {search === '' ? showData() : showSearch()}
       </div>
     </>
   )
