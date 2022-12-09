@@ -21,7 +21,14 @@ const useLaunchSearch = (query, page) => {
     SpaceXRef.post(
       QUERY_ENDPOINT,
       {
-        query: {},
+        query:
+          query === ''
+            ? {}
+            : {
+                $text: {
+                  $search: query,
+                },
+              },
         options: {
           limit: 5,
           page: page,
