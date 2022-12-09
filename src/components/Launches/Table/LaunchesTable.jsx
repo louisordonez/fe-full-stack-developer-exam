@@ -14,9 +14,7 @@ const LaunchesTable = () => {
     getLaunchData()
   }, [])
 
-  useEffect(() => {
-    showData()
-  }, [search])
+  useEffect(() => {}, [search])
 
   const getLaunchData = () => {
     setIsLoading(true)
@@ -30,6 +28,13 @@ const LaunchesTable = () => {
     })
   }
 
+  const handleSearch = (event) => {
+    const query = event.target.value.trim()
+
+    setSearch(query)
+    setIsLoading(true)
+  }
+
   const showSearch = () => {
     const filter = launches.filter((launch) => {
       return (
@@ -39,7 +44,7 @@ const LaunchesTable = () => {
       )
     })
 
-    if (find === undefined) {
+    if (filter.length === 0) {
       return (
         <div className="launches-table-container">
           <div
@@ -75,12 +80,6 @@ const LaunchesTable = () => {
         </div>
       ))
     }
-  }
-
-  const handleSearch = (event) => {
-    const query = event.target.value.trim()
-
-    setSearch(query)
   }
 
   const showData = () => {
