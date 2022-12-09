@@ -1,10 +1,81 @@
-import Launches from './components/Launches/Launches'
+import { useState, useRef, useCallback } from 'react'
+import SearchInput from './components/SearchInput/SearchInput'
+import useLaunchSearch from './services/hooks/useLaunchSearch'
 import './App.css'
 
 const App = () => {
+  const [query, setQuery] = useState('')
+  const [page, setPage] = useState(1)
+
+  const { launches, hasMore, loading, error } = useLaunchSearch(query, page)
+
+  const observer = useRef()
+  const lastLaunchElementRef = useCallback(
+    (node) => {
+      if (loading) return
+
+      if (observer.current) observer.current.disconnect()
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1)
+        }
+      })
+
+      if (node) observer.current.observe(node)
+    },
+    [loading, hasMore]
+  )
+
+  const handleSearch = (event) => {
+    setQuery(event.target.value)
+    setPage(1)
+  }
+
   return (
     <div className="app">
-      <Launches />
+      <div className="launches">
+        <SearchInput query={query} handleSearch={handleSearch} />
+        <div className="launches-card">
+          <div style={{ paddingBottom: '3rem' }} />
+          {launches.map((launch, index) => {
+            if (launches.length === index + 1) {
+              return (
+                <div className="launches-card-container" ref={lastLaunchElementRef} key={index}>
+                  <div className="launches-card-icon">
+                    <img src={launch.links.flickr.original[0]} className="launches-card-icon-img" />
+                  </div>
+                  <div className="launches-card-info-container">
+                    <div className="launches-card-info-header">
+                      {launch.flight_number}: {launch.name} ({new Date(launch.date_utc).getFullYear()})
+                    </div>
+                    <div className="launches-card-info-details">Details: {launch.details}</div>
+                  </div>
+                </div>
+              )
+            } else {
+              return (
+                <div className="launches-card-container" key={index}>
+                  <div className="launches-card-icon">
+                    <img src={launch.links.flickr.original[0]} className="launches-card-icon-img" />
+                  </div>
+                  <div className="launches-card-info-container">
+                    <div className="launches-card-info-header">
+                      {launch.flight_number}: {launch.name} ({new Date(launch.date_utc).getFullYear()})
+                    </div>
+                    <div className="launches-card-info-details">Details: {launch.details}</div>
+                  </div>
+                </div>
+              )
+            }
+          })}
+        </div>
+        <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{loading && 'Loading...'}</div>
+        <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{error && 'Error'}</div>
+        <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>
+          {!loading && !hasMore && 'No more data'}
+        </div>
+      </div>
     </div>
   )
 }
