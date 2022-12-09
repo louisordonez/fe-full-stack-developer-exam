@@ -11,6 +11,10 @@ const LaunchesTable = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    getLaunchData()
+  }, [])
+
+  const getLaunchData = () => {
     setIsLoading(true)
     axiosGet(LAUNCHES_ENDPOINT, HEADERS).then((response) => {
       setIsLoading(false)
@@ -20,40 +24,52 @@ const LaunchesTable = () => {
         alert(response.message)
       }
     })
-  }, [])
+  }
 
   const handleSearch = (event) => {
     const query = event.target.value.trim()
 
     setSearch(query)
+
+    if (query === '') {
+      getLaunchData()
+    } else {
+      const find = launches.find(
+        (launch) => launch.flight_number.toString() === query
+      )
+
+      setLaunches([find])
+    }
   }
 
-  const launchData = launches.map((launch, index) => (
-    <div className="launches-table-container" key={index}>
-      <div className="launches-table-icon">
-        <img
-          src={launch.links.flickr.original[0]}
-          className="launches-table-icon-img"
-        />
-      </div>
-      <div className="launches-table-info-container">
-        <div className="launches-table-info-header">
-          {launch.flight_number}: {launch.name} (
-          {new Date(launch.date_unix).getFullYear()})
+  const showData = (data) => {
+    return data.map((launch, index) => (
+      <div className="launches-table-container" key={index}>
+        <div className="launches-table-icon">
+          <img
+            src={launch.links.flickr.original[0]}
+            className="launches-table-icon-img"
+          />
         </div>
-        <div className="launches-table-info-details">
-          Details: {launch.details}
+        <div className="launches-table-info-container">
+          <div className="launches-table-info-header">
+            {launch.flight_number}: {launch.name} (
+            {new Date(launch.date_unix).getFullYear()})
+          </div>
+          <div className="launches-table-info-details">
+            Details: {launch.details}
+          </div>
         </div>
       </div>
-    </div>
-  ))
+    ))
+  }
 
   return (
     <>
       <SearchInput search={search} handleSearch={handleSearch} />
       <div className="launches-table">
         <div style={{ paddingBottom: '3rem' }}></div>
-        {launchData}
+        {showData(launches)}
       </div>
     </>
   )
