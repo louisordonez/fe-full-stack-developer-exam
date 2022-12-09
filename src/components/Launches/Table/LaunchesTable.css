@@ -1,0 +1,34 @@
+.launches-table {
+  margin-top: 2rem;
+  background-color: #ffffff;
+  border: rgb(232, 232, 232);
+  border-radius: 5px;
+  padding: 3rem;
+}
+
+.launches-table-container {
+  display: flex;
+  align-items: center;
+  color: rgb(107, 107, 107);
+}
+
+.launches-table-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  background-color: rgb(242, 242, 242);
+}
+
+.launches-table-info-container {
+  font-weight: 700;
+  margin-left: 2rem;
+}
+
+.launches-table-info-header {
+  margin-bottom: 0.5rem;
+}
+
+.launches-table-info-details {
+  font-size: small;
+  color: rgb(186, 186, 186);
+}

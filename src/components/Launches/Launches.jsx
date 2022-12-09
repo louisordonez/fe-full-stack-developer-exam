@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import SearchInput from './Input/SearchInput'
+import LaunchesTable from './Table/LaunchesTable'
 import './Launches.css'
 import { LAUNCHES_ENDPOINT } from '../../services/constants/endpoints'
 import { HEADERS } from '../../services/constants/headers'
@@ -19,8 +20,9 @@ const Launches = () => {
   }, [])
 
   return (
-    <div className="launches-container">
+    <div className="launches">
       <SearchInput />
+      <LaunchesTable />
     </div>
   )
 }
