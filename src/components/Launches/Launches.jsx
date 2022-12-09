@@ -22,7 +22,7 @@ const Launches = () => {
   return (
     <div className="launches">
       <SearchInput />
-      <LaunchesTable />
+      <LaunchesTable launches={launches} />
     </div>
   )
 }

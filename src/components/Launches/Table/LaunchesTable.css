@@ -3,10 +3,10 @@
   background-color: #ffffff;
   border: rgb(232, 232, 232);
   border-radius: 5px;
-  padding: 3rem;
 }
 
 .launches-table-container {
+  padding: 3rem 3rem 3rem 3rem;
   display: flex;
   align-items: center;
   color: rgb(107, 107, 107);
@@ -19,7 +19,14 @@
   background-color: rgb(242, 242, 242);
 }
 
+.launches-table-icon-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
 .launches-table-info-container {
+  width: 100%;
   font-weight: 700;
   margin-left: 2rem;
 }
