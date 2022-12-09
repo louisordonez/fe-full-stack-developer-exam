@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import SearchInput from './components/SearchInput/SearchInput'
+import Spinner from './components/Spinner/Spinner'
 import useLaunchSearch from './services/hooks/useLaunchSearch'
 import './App.css'
 
@@ -37,7 +38,7 @@ const App = () => {
       <div className="launches">
         <SearchInput query={query} handleSearch={handleSearch} />
         <div className="launches-card">
-          <div style={{ paddingBottom: '3rem' }} />
+          <div className="padding-bottom" />
           {launches.map((launch, index) => {
             if (launches.length === index + 1) {
               return (
@@ -70,11 +71,9 @@ const App = () => {
             }
           })}
         </div>
-        <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{loading && 'Loading...'}</div>
-        <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{error && 'Error'}</div>
-        <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>
-          {!loading && !hasMore && 'No more data'}
-        </div>
+        {loading && <Spinner />}
+        <div className="status">{error && 'Error'}</div>
+        <div>{!loading && !hasMore && 'No more data'}</div>
       </div>
     </div>
   )

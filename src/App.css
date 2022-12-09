@@ -3,6 +3,12 @@
   justify-content: center;
 }
 
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .launches {
   margin-top: 15vh;
   margin-bottom: 15vh;
@@ -49,4 +55,14 @@
 .launches-card-info-details {
   font-size: small;
   color: rgb(186, 186, 186);
+}
+
+.padding-bottom {
+  padding-bottom: 3rem;
+}
+
+.status {
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
 }
