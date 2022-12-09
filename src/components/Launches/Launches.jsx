@@ -38,7 +38,7 @@ const Launches = () => {
                 </div>
                 <div className="launches-table-info-container">
                   <div className="launches-table-info-header">
-                    {launch.flight_number}: {launch.name} ({new Date(launch.date_unix).getFullYear()})
+                    {launch.flight_number}: {launch.name} ({new Date(launch.date_utc).getFullYear()})
                   </div>
                   <div className="launches-table-info-details">Details: {launch.details}</div>
                 </div>
@@ -52,7 +52,7 @@ const Launches = () => {
                 </div>
                 <div className="launches-table-info-container">
                   <div className="launches-table-info-header">
-                    {launch.flight_number}: {launch.name} ({new Date(launch.date_unix).getFullYear()})
+                    {launch.flight_number}: {launch.name} ({new Date(launch.date_utc).getFullYear()})
                   </div>
                   <div className="launches-table-info-details">Details: {launch.details}</div>
                 </div>
@@ -63,6 +63,7 @@ const Launches = () => {
       </div>
       <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{loading && 'Loading...'}</div>
       <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{error && 'Error'}</div>
+      <div style={{ width: '100%', textAlign: 'center', marginTop: '3rem' }}>{!hasMore && 'No more data'}</div>
     </div>
   )
 }
