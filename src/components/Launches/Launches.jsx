@@ -20,7 +20,6 @@ const Launches = () => {
 
   return (
     <div className="launches-container">
-      Launches
       <SearchInput />
     </div>
   )

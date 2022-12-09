@@ -1,0 +1,13 @@
+.search-input {
+  width: 100%;
+  border: none;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: rgb(232, 232, 232);
+  box-sizing: border-box;
+}
+
+input:placeholder-shown {
+  font-style: italic;
+}
