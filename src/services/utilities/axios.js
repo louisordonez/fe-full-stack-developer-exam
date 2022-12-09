@@ -1,11 +1,6 @@
 import axios from 'axios'
+import { SPACE_X_BASE_URL } from '../constants/endpoints'
 
 export const SpaceXRef = axios.create({
-  baseURL: 'https://api.spacexdata.com',
+  baseURL: SPACE_X_BASE_URL,
 })
-
-export const axiosGet = async (endpoint) => {
-  return SpaceXRef.get(endpoint)
-    .then((response) => response)
-    .catch((error) => error)
-}
