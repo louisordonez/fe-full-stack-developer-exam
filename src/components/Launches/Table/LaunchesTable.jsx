@@ -17,9 +17,7 @@ const LaunchesTable = () => {
   useEffect(() => {}, [search])
 
   const getLaunchData = () => {
-    setIsLoading(true)
     axiosGet(LAUNCHES_ENDPOINT, HEADERS).then((response) => {
-      setIsLoading(false)
       if (response.status === 200) {
         setLaunches(response.data)
       } else {
@@ -32,7 +30,6 @@ const LaunchesTable = () => {
     const query = event.target.value.trim()
 
     setSearch(query)
-    setIsLoading(true)
   }
 
   const showSearch = () => {
