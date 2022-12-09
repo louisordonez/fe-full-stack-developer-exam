@@ -37,8 +37,8 @@ const App = () => {
     <div className="app">
       <div className="launches">
         <SearchInput query={query} handleSearch={handleSearch} />
-        <div className="launches-card">
-          <div className="padding-bottom" />
+        <div className="launches-card" style={{ visibility: launches.length === 0 ? 'hidden' : 'visible' }}>
+          <div className="padding-bottom" style={{ visibility: launches.length === 0 ? 'hidden' : 'visible' }} />
           {launches.map((launch, index) => {
             if (launches.length === index + 1) {
               return (
@@ -71,7 +71,7 @@ const App = () => {
             }
           })}
         </div>
-        <div className="center margin-top">{loading && <Spinner />}</div>
+        <div className={`center ${launches.length !== 0 && 'margin-top'}`}>{loading && <Spinner />}</div>
         <div className="status">{error && 'Error'}</div>
         <div className="status">{!loading && !hasMore && 'No more data'}</div>
       </div>
