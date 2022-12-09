@@ -21,7 +21,12 @@ const LaunchesTable = ({ launches }) => {
     </div>
   ))
 
-  return <div className="launches-table">{launchDetails}</div>
+  return (
+    <div className="launches-table">
+      <div style={{ paddingBottom: '3rem' }}></div>
+      {launchDetails}
+    </div>
+  )
 }
 
 export default LaunchesTable
