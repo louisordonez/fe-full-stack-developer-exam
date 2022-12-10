@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import SearchInput from './components/SearchInput/SearchInput'
+import LaunchesCard from './components/LaunchesCard/LaunchesCard'
 import Spinner from './components/Spinner/Spinner'
 import useLaunchSearch from './services/hooks/useLaunchSearch'
 import './App.css'
@@ -28,6 +29,8 @@ const App = () => {
     [loading, hasMore]
   )
 
+  const handleVisibility = (data) => (data.length === 0 ? 'hidden' : 'visible')
+
   const handleSearch = (event) => {
     setQuery(event.target.value)
     setPage(1)
@@ -37,41 +40,17 @@ const App = () => {
     <div className="app">
       <div className="launches">
         <SearchInput query={query} handleSearch={handleSearch} />
-        <div className="launches-card" style={{ visibility: launches.length === 0 ? 'hidden' : 'visible' }}>
-          <div className="padding-bottom" style={{ visibility: launches.length === 0 ? 'hidden' : 'visible' }} />
+        <div className="launches-card" style={{ visibility: handleVisibility(launches) }}>
+          <div className="padding-bottom" style={{ visibility: handleVisibility(launches) }} />
           {launches.map((launch, index) => {
-            if (launches.length === index + 1) {
-              return (
-                <div className="launches-card-container" ref={lastLaunchElementRef} key={index}>
-                  <div className="launches-card-icon">
-                    <img src={launch.links.flickr.original[0]} className="launches-card-icon-img" />
-                  </div>
-                  <div className="launches-card-info-container">
-                    <div className="launches-card-info-header">
-                      {launch.flight_number}: {launch.name} ({new Date(launch.date_utc).getFullYear()})
-                    </div>
-                    <div className="launches-card-info-details">Details: {launch.details}</div>
-                  </div>
-                </div>
-              )
-            } else {
-              return (
-                <div className="launches-card-container" key={index}>
-                  <div className="launches-card-icon">
-                    <img src={launch.links.flickr.original[0]} className="launches-card-icon-img" />
-                  </div>
-                  <div className="launches-card-info-container">
-                    <div className="launches-card-info-header">
-                      {launch.flight_number}: {launch.name} ({new Date(launch.date_utc).getFullYear()})
-                    </div>
-                    <div className="launches-card-info-details">Details: {launch.details}</div>
-                  </div>
-                </div>
-              )
-            }
+            return (
+              <div ref={launches.length === index + 1 ? lastLaunchElementRef : null} key={index}>
+                <LaunchesCard launch={launch} />
+              </div>
+            )
           })}
         </div>
-        <div className={`center ${launches.length !== 0 && 'margin-top'}`}>{loading && <Spinner />}</div>
+        <div className={`center ${launches.length !== 0 && 'margin-top padding-bottom'}`}>{loading && <Spinner />}</div>
         <div className="status">{error && 'Error'}</div>
         <div className="status">{!loading && !hasMore && 'No more data'}</div>
       </div>

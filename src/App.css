@@ -16,7 +16,7 @@
 }
 
 .launches-card-container {
-  padding: 0rem 3rem 3rem 3rem;
+  padding: 0rem 2rem 2rem 2rem;
   display: flex;
   align-items: center;
   color: rgb(107, 107, 107);
@@ -57,7 +57,7 @@
 }
 
 .padding-bottom {
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }
 
 .margin-top {
@@ -65,8 +65,9 @@
 }
 
 .status {
+  color: rgb(107, 107, 107);
   width: 100%;
   text-align: center;
-  margin-top: -2rem;
+  margin-top: -6rem;
   margin-bottom: 3rem;
 }
