@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SpaceXRef } from '../utilities/axios'
 import { QUERY_ENDPOINT } from '../constants/endpoints'
+import axios from 'axios'
 
 const useLaunchSearch = (query, page) => {
   const [loading, setLoading] = useState(true)
@@ -36,7 +37,7 @@ const useLaunchSearch = (query, page) => {
         setHasMore(res.data.docs.length > 0)
         setLoading(false)
       })
-      .catch((err) => err.name !== 'CanceledError' && setError(true))
+      .catch((err) => !axios.isCancel(err) && setError(true))
 
     return () => controller.abort()
   }, [query, page])
