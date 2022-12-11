@@ -21,14 +21,7 @@ const useLaunchSearch = (query, page) => {
     SpaceXRef.post(
       QUERY_ENDPOINT,
       {
-        query:
-          query === ''
-            ? {}
-            : {
-                $text: {
-                  $search: query,
-                },
-              },
+        query: query === '' ? {} : { $text: { $search: query } },
         options: {
           limit: 5,
           page: page,
@@ -43,9 +36,7 @@ const useLaunchSearch = (query, page) => {
         setHasMore(res.data.docs.length > 0)
         setLoading(false)
       })
-      .catch((err) => {
-        err.name !== 'CanceledError' && setError(true)
-      })
+      .catch((err) => err.name !== 'CanceledError' && setError(true))
 
     return () => controller.abort()
   }, [query, page])
