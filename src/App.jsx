@@ -12,6 +12,7 @@ const App = () => {
   const { launches, hasMore, loading, error } = useLaunchSearch(query, page)
 
   const observer = useRef()
+
   const lastLaunchElementRef = useCallback(
     (node) => {
       if (loading) return
