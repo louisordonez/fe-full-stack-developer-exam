@@ -1,5 +1,73 @@
 .app {
   display: flex;
   justify-content: center;
+}
+
+.launches {
+  margin-top: 15vh;
+  width: 75vw;
+}
+
+.launches-card {
+  margin-top: 2rem;
+  background-color: #ffffff;
+  border: rgb(232, 232, 232);
+  border-radius: 5px;
+}
+
+.launches-card-container {
+  padding: 0rem 2rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  color: rgb(107, 107, 107);
+}
+
+.launches-card-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
   background-color: rgb(242, 242, 242);
+}
+
+.launches-card-icon-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.launches-card-info-container {
+  width: 100%;
+  font-weight: 700;
+  margin-left: 2rem;
+}
+
+.launches-card-info-header {
+  margin-bottom: 0.5rem;
+}
+
+.launches-card-info-details {
+  font-size: small;
+  color: rgb(186, 186, 186);
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.padding-bottom {
+  padding-bottom: 2rem;
+}
+
+.margin-top {
+  margin-top: 3rem;
+}
+
+.status {
+  color: rgb(107, 107, 107);
+  width: 100%;
+  text-align: center;
+  margin-top: -6rem;
+  margin-bottom: 3rem;
 }

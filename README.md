@@ -1,4 +1,4 @@
-### fe-full-stack-developer-exam
+# space-x-launches
 
 How to build the application:
 
