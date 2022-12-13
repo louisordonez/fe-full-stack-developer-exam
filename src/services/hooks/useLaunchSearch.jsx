@@ -37,12 +37,7 @@ const useLaunchSearch = (query, page) => {
         setHasMore(res.data.docs.length > 0)
         setLoading(false)
       })
-      .catch((err) => {
-        if (axios.isCancel(err)) return
-        setError(true)
-      })
-    // Alternative
-    // .catch((err) => !axios.isCancel(err) && setError(true))
+      .catch((err) => !axios.isCancel(err) && setError(true))
 
     return () => controller.abort()
   }, [query, page])
