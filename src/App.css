@@ -71,3 +71,15 @@
   margin-top: -6rem;
   margin-bottom: 3rem;
 }
+
+.table-cell {
+  display: table-cell;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.subheader {
+  margin-bottom: 2rem;
+}

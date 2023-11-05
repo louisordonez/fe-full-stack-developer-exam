@@ -22,8 +22,17 @@ const useLaunchSearch = (query, page) => {
     SpaceXRef.post(
       QUERY_ENDPOINT,
       {
-        query: query === '' ? {} : { $text: { $search: query } },
+        query:
+          query === ''
+            ? {}
+            : {
+                name: {
+                  $regex: query,
+                  $options: 'i',
+                },
+              },
         options: {
+          sort: { flight_number: 'asc' },
           limit: 5,
           page: page,
         },

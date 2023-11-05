@@ -40,18 +40,46 @@ const App = () => {
   return (
     <div className="app">
       <div className="launches">
+        <h1 className="header">Space X Launches</h1>
+        <p className="subheader">
+          Data from{' '}
+          <a
+            href="https://github.com/r-spacex/SpaceX-API"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SpaceX-API
+          </a>
+        </p>
         <SearchInput query={query} handleSearch={handleSearch} />
-        <div className="launches-card" style={{ visibility: handleVisibility(launches) }}>
-          <div className="padding-bottom" style={{ visibility: handleVisibility(launches) }} />
+        <div
+          className="launches-card"
+          style={{ visibility: handleVisibility(launches) }}
+        >
+          <div
+            className="padding-bottom"
+            style={{ visibility: handleVisibility(launches) }}
+          />
           {launches.map((launch, index) => {
             return (
-              <div ref={launches.length === index + 1 ? lastLaunchElementRef : null} key={index}>
+              <div
+                ref={
+                  launches.length === index + 1 ? lastLaunchElementRef : null
+                }
+                key={index}
+              >
                 <LaunchesCard launch={launch} />
               </div>
             )
           })}
         </div>
-        <div className={`center ${launches.length !== 0 && 'margin-top padding-bottom'}`}>{loading && <Spinner />}</div>
+        <div
+          className={`center ${
+            launches.length !== 0 && 'margin-top padding-bottom'
+          }`}
+        >
+          {loading && <Spinner />}
+        </div>
         <div className="status">{error && 'Error'}</div>
         <div className="status">{!loading && !hasMore && 'No more data'}</div>
       </div>
